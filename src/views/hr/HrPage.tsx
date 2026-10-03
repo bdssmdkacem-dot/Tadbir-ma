@@ -9,7 +9,7 @@ import { members, memberTypeLabel, memberTypeBadge, type MemberType } from "@/da
 function AddMemberModal({ onClose }: { onClose: () => void }) {
   const [name,  setName]  = useState("");
   const [type,  setType]  = useState<MemberType>("employee");
-  const [pos,   setPos   ] = useState("");
+  const [pos,   setPos   = useState("");
   const [email, setEmail] = useState("");
 
   return (
@@ -114,7 +114,7 @@ export function HrPage() {
                 {["العضو","المنصب","النوع","المشروع","تاريخ الانضمام","الحالة",""].map(h=>(
                   <th key={h} className="px-4 py-2.5 text-[0.6875rem] font-semibold text-muted whitespace-nowrap">{h}</th>
                 ))}
-            </tr>
+              </tr>
             </thead>
             <tbody>
               {filtered.map((m,i)=>(
