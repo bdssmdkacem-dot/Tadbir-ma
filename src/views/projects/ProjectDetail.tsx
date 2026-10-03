@@ -67,7 +67,7 @@ export function ProjectDetail({
             { l: "الممول",           v: project.funder.name            },
             { l: "الجهة",            v: project.region                 },
             { l: "مدير المشروع",     v: project.manager                },
-            { l: "المدة",            v: \`${project.startDate} — ${project.endDate}\` },
+            { l: "المدة",            v: `${project.startDate} — ${project.endDate}` },
           ].map((item) => (
             <div key={item.l}>
               <p className="text-[0.6875rem] text-white/55 m-0 mb-0.5">{item.l}</p>
@@ -82,7 +82,7 @@ export function ProjectDetail({
           </div>
           <div className="w-full h-2 rounded-badge overflow-hidden" style={{ background: "rgba(255,255,255,0.2)" }}>
             <div className="h-full rounded-badge transition-all duration-700"
-              style={{ width: \`${project.progress}%\`, background: "var(--c-gold)" }} />
+              style={{ width: `${project.progress}%`, background: "var(--c-gold)" }} />
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@ export function ProjectDetail({
             { l: "المتبقي",             v: project.budget - project.spent, c: "var(--c-success)" },
           ].map((item) => (
             <div key={item.l} className="bg-white rounded-card border border-ivory-dk p-5"
-              style={{ borderTop: \`3px solid ${item.c}\` }}>
+              style={{ borderTop: `3px solid ${item.c}` }}>
               <p className="text-[0.75rem] text-muted m-0 mb-2">{item.l}</p>
               <p className="font-display font-black text-[1.5rem] m-0 leading-none"
                 style={{ color: item.c }}>
