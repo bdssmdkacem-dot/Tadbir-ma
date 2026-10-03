@@ -9,7 +9,7 @@ import { members, memberTypeLabel, memberTypeBadge, type MemberType } from "@/da
 function AddMemberModal({ onClose }: { onClose: () => void }) {
   const [name,  setName]  = useState("");
   const [type,  setType]  = useState<MemberType>("employee");
-  const [pos,   setPos   = useState("");
+  const [pos,   setPos   ] = useState("");
   const [email, setEmail] = useState("");
 
   return (
