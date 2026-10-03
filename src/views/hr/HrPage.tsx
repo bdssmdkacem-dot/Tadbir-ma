@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useMemo } from "react";
+
 import { Inview } from "@/components/animation/springs/in-view";
 import { Badge } from "@/components/ui/Badge";
 import { members, memberTypeLabel, memberTypeBadge, type MemberType } from "@/data/mocks/modules";
