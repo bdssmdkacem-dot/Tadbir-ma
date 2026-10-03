@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+
 import { Inview } from "@/components/animation/springs/in-view";
 import { Badge } from "@/components/ui/Badge";
 import { members, memberTypeLabel, memberTypeBadge, type MemberType } from "@/data/mocks/modules";
@@ -8,11 +9,11 @@ import { members, memberTypeLabel, memberTypeBadge, type MemberType } from "@/da
 function AddMemberModal({ onClose }: { onClose: () => void }) {
   const [name,  setName]  = useState("");
   const [type,  setType]  = useState<MemberType>("employee");
-  const [pos,   setPos]   = useState("");
+  const [pos,   setPos   ] = useState("");
   const [email, setEmail] = useState("");
 
   return (
-    <div dir="rtl" className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{background:"rgba(8,63,77,0.6)",backdropFilter:"blur(4px)"}}
       onClick={e=>e.target===e.currentTarget&&onClose()}>
       <div dir="rtl" className="w-full max-w-[26rem] bg-white rounded-card shadow-2xl overflow-hidden">
@@ -113,7 +114,7 @@ export function HrPage() {
                 {["العضو","المنصب","النوع","المشروع","تاريخ الانضمام","الحالة",""].map(h=>(
                   <th key={h} className="px-4 py-2.5 text-[0.6875rem] font-semibold text-muted whitespace-nowrap">{h}</th>
                 ))}
-              </tr>
+            </tr>
             </thead>
             <tbody>
               {filtered.map((m,i)=>(
