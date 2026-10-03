@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-
 import { Inview } from "@/components/animation/springs/in-view";
 import { Badge } from "@/components/ui/Badge";
 import { members, memberTypeLabel, memberTypeBadge, type MemberType } from "@/data/mocks/modules";
@@ -72,6 +71,7 @@ export function HrPage() {
 
   return (
     <div dir="rtl" className="space-y-5">
+      {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[{key:"employee",label:"موظفون"},{key:"volunteer",label:"متطوعون"},{key:"expert",label:"خبراء"},{key:"board",label:"مجلس الإدارة"}].map((c,i)=>(
           <Inview key={c.key} tag="div" from={{opacity:0,y:16}} to={{opacity:1,y:0}} mode="once"
@@ -83,6 +83,8 @@ export function HrPage() {
           </Inview>
         ))}
       </div>
+
+      {/* Controls */}
       <div className="flex flex-wrap items-center gap-3">
         <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 بحث..."
           className="flex-1 min-w-[12rem] px-3 py-2.5 rounded-btn border border-ivory-dk bg-white text-[0.875rem] outline-none focus:border-teal transition-colors"/>
@@ -101,6 +103,8 @@ export function HrPage() {
           + إضافة عضو
         </button>
       </div>
+
+      {/* Table */}
       <div className="bg-white rounded-card border border-ivory-dk overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-right">
@@ -144,6 +148,7 @@ export function HrPage() {
           </table>
         </div>
       </div>
+
       {showModal && <AddMemberModal onClose={()=>setShowModal(false)}/>}
     </div>
   );
