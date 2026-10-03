@@ -1,0 +1,114 @@
+@import "tailwindcss" source("../");
+
+/* ── TIER 1 — raw literals ─────────────────────────────────────────────────── */
+:root {
+  --raw-white:       #ffffff;
+  --raw-neutral-100: #ededed;
+  --raw-neutral-900: #171717;
+  --raw-neutral-950: #0a0a0a;
+
+  /* Tadbir brand */
+  --raw-teal-950:  #083f4d;
+  --raw-teal-800:  #0d5c6b;
+  --raw-teal-600:  #1a7a8e;
+  --raw-teal-100:  #ebf4f6;
+  --raw-gold-500:  #c9962f;
+  --raw-gold-400:  #e8b84b;
+  --raw-ivory-50:  #faf8f3;
+  --raw-ivory-100: #f0ede3;
+  --raw-stone-500: #6b6456;
+  --raw-stone-900: #1a1814;
+  --raw-green-700: #1a7a4a;
+  --raw-green-50:  #e8f5ed;
+  --raw-red-700:   #c0392b;
+  --raw-red-50:    #fdf0ef;
+
+  --raw-dur-fast:   150ms;
+  --raw-dur-normal: 250ms;
+}
+
+/* ── TIER 2 — semantic ──────────────────────────────────────────────────────── */
+:root {
+  --background:     var(--raw-ivory-50);
+  --foreground:     var(--raw-stone-900);
+
+  --c-teal:         var(--raw-teal-800);
+  --c-teal-dark:    var(--raw-teal-950);
+  --c-teal-mid:     var(--raw-teal-600);
+  --c-teal-bg:      var(--raw-teal-100);
+  --c-gold:         var(--raw-gold-500);
+  --c-gold-lt:      var(--raw-gold-400);
+  --c-ivory:        var(--raw-ivory-50);
+  --c-ivory-dk:     var(--raw-ivory-100);
+  --c-muted:        var(--raw-stone-500);
+  --c-success:      var(--raw-green-700);
+  --c-success-bg:   var(--raw-green-50);
+  --c-danger:       var(--raw-red-700);
+  --c-danger-bg:    var(--raw-red-50);
+  --c-sidebar:      var(--raw-teal-950);
+  --c-sidebar-item: var(--raw-teal-800);
+
+  --dur-fast:   var(--raw-dur-fast);
+  --dur-normal: var(--raw-dur-normal);
+}
+
+/* ── THEME BINDINGS → Tailwind utilities ────────────────────────────────────── */
+@theme inline {
+  --color-background:  var(--background);
+  --color-foreground:  var(--foreground);
+
+  --color-teal:        var(--c-teal);
+  --color-teal-dark:   var(--c-teal-dark);
+  --color-teal-mid:    var(--c-teal-mid);
+  --color-teal-bg:     var(--c-teal-bg);
+  --color-gold:        var(--c-gold);
+  --color-gold-lt:     var(--c-gold-lt);
+  --color-ivory:       var(--c-ivory);
+  --color-ivory-dk:    var(--c-ivory-dk);
+  --color-muted:       var(--c-muted);
+  --color-success:     var(--c-success);
+  --color-success-bg:  var(--c-success-bg);
+  --color-danger:      var(--c-danger);
+  --color-danger-bg:   var(--c-danger-bg);
+  --color-sidebar:     var(--c-sidebar);
+
+  --font-sans:         system-ui, -apple-system, sans-serif;
+  --font-display:      Georgia, "Times New Roman", serif;
+  --leading-display:   1.1;
+  --ease-entrance:     cubic-bezier(0.2, 0, 0, 1);
+
+  --spacing-section:   7rem;
+  --spacing-nav:       16rem;   /* sidebar width */
+  --spacing-nav-sm:    4rem;    /* sidebar collapsed */
+
+  --radius-card:  0.75rem;
+  --radius-badge: 99px;
+  --radius-btn:   0.5rem;
+}
+
+body { background: var(--background); color: var(--foreground); }
+
+@layer base {
+  html { font-size: 16px; }
+  @media (max-width: 1920px) { html { font-size: 0.833333vw; } }
+  @media (max-width: 1440px) { html { font-size: 1.111111vw; } }
+  @media (max-width: 1024px) { html { font-size: 1.5625vw;   } }
+  @media (max-width: 640px)  { html { font-size: 4.444444vw; } }
+}
+@layer utilities {}
+@layer components {}
+
+/* ── Utilities needed by AI page ────────────────────────────────────────────── */
+@layer utilities {
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .animate-spin   { animation: spin 1s linear infinite; }
+
+  @keyframes pulse-bg {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+  .animate-pulse  { animation: pulse-bg 1.5s ease-in-out infinite; }
+}
