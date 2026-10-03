@@ -28,7 +28,7 @@ export function NewProjectModal({ onClose }: { onClose: () => void }) {
 
   function handleSubmit() {
     // In production: POST to /api/projects
-    alert(\`✓ تم إنشاء المشروع: ${form.name}\`);
+    alert(`✓ تم إنشاء المشروع: ${form.name}`);
     onClose();
   }
 
@@ -190,9 +190,9 @@ export function NewProjectModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-const inputCls = \`w-full px-3 py-2.5 rounded-btn border border-ivory-dk bg-background
+const inputCls = `w-full px-3 py-2.5 rounded-btn border border-ivory-dk bg-background
   text-[0.875rem] text-foreground placeholder:text-muted outline-none
-  focus:border-teal transition-colors duration-[150ms]\`;
+  focus:border-teal transition-colors duration-[150ms]`;
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
