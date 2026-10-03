@@ -137,4 +137,3 @@ export function TransactionsTable({ onAdd }: { onAdd: () => void }) {
     </Inview>
   );
 }
-
