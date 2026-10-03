@@ -1,20 +1,158 @@
-// Batch 1 placeholder-preserved source from the supplied complete archive.
 "use client";
+
 import { useState } from "react";
 import { Inview } from "@/components/animation/springs/in-view";
 import { Badge } from "@/components/ui/Badge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { projects } from "@/data/mocks/projects";
 import { ZelligePattern } from "@/components/ui/ZelligePattern";
-const DEFAULT_PUBLIC = new Set(["p1","p3","p5"]);
+
+const DEFAULT_PUBLIC = new Set(["p1", "p3", "p5"]);
+
 export function TransparencyPage() {
- const [publicSet,setPublicSet]=useState<Set<string>>(DEFAULT_PUBLIC); const [copied,setCopied]=useState(false);
- const slug="jamiat-tanmia-marrakech"; const pubUrl=`https://tadbir.ma/public/${slug}`;
- function toggleProject(id:string){setPublicSet(prev=>{const next=new Set(prev);next.has(id)?next.delete(id):next.add(id);return next;});}
- async function copyUrl(){await navigator.clipboard.writeText(pubUrl);setCopied(true);setTimeout(()=>setCopied(false),2000);}
- return <div dir="rtl" className="space-y-6">
-  <div className="relative overflow-hidden rounded-card p-7" style={{background:"linear-gradient(135deg,var(--c-teal-dark),var(--c-teal))"}}><ZelligePattern opacity={0.08}/><div className="relative z-10"><h2 className="font-display font-black text-[1.375rem] text-white m-0 mb-2">بوابة الشفافية</h2><p className="text-white/70 text-[0.875rem] m-0 mb-5">انشر مشاريعك وتقاريرك للعموم وابنِ الثقة مع المستفيدين والممولين</p><div className="flex items-center gap-2 bg-white/10 rounded-btn px-4 py-2.5 border border-white/20 max-w-[32rem]"><span className="text-[0.75rem] text-white/60">🔗</span><span className="text-[0.8125rem] text-white font-mono flex-1 truncate">{pubUrl}</span><button onClick={copyUrl} className="text-[0.75rem] font-semibold px-3 py-1 rounded-btn border-0 cursor-pointer" style={{background:copied?"var(--c-success)":"var(--c-gold)",color:copied?"#fff":"var(--c-teal-dark)"}}>{copied?"✓ تم":"نسخ"}</button></div></div></div>
-  <div className="grid grid-cols-3 gap-4">{[{label:"المشاريع المنشورة",value:publicSet.size},{label:"المشاريع الكلية",value:projects.length},{label:"المشاهدات هذا الشهر",value:"284"}].map((s,i)=><Inview key={s.label} tag="div" from={{opacity:0,y:16}} to={{opacity:1,y:0}} mode="once" config={{tension:220,friction:28}} delayIn={i*70} className="bg-white rounded-card border border-ivory-dk p-5 text-center"><p className="font-display font-black text-[2rem] text-teal-dark leading-none m-0">{s.value}</p><p className="text-[0.75rem] text-muted m-0 mt-1">{s.label}</p></Inview>)}</div>
-  <div className="bg-white rounded-card border border-ivory-dk overflow-hidden"><div className="px-5 py-4 border-b border-ivory-dk"><h3 className="font-display font-bold text-[0.9375rem] text-foreground m-0">اختر المشاريع المرئية للعموم</h3></div>{projects.map((p,i)=>{const isPublic=publicSet.has(p.id);return <Inview key={p.id} tag="div" from={{opacity:0}} to={{opacity:1}} mode="once" config={{tension:220,friction:32}} delayIn={i*50} className="flex items-center gap-4 px-5 py-4 border-b border-ivory-dk last:border-0"><button onClick={()=>toggleProject(p.id)} className="relative w-10 h-5 rounded-badge border-0 cursor-pointer" style={{background:isPublic?"var(--c-teal)":"var(--c-ivory-dk)"}} role="switch" aria-checked={isPublic}><span className="absolute top-0.5 w-4 h-4 rounded-full bg-white" style={{right:isPublic?"0.125rem":"auto",left:isPublic?"auto":"0.125rem"}}/></button><div className="flex-1 min-w-0"><p className="text-[0.875rem] font-semibold text-foreground m-0 truncate">{p.name}</p><div className="flex items-center gap-2 mt-1"><span className="text-[0.6875rem] text-muted">{p.funder.name}</span><span className="text-[0.6875rem] text-muted">·</span><span className="text-[0.6875rem] text-muted">{p.region}</span></div><div className="flex items-center gap-2 mt-1.5"><ProgressBar value={p.progress} className="w-24"/><span className="text-[0.6875rem] text-muted">{p.progress}%</span></div></div><Badge variant={isPublic?"success":"muted"}>{isPublic?"✓ منشور":"مخفي"}</Badge></Inview>})}</div>
- </div>;
+  const [publicSet, setPublicSet] = useState<Set<string>>(DEFAULT_PUBLIC);
+  const [copied,    setCopied]    = useState(false);
+
+  const slug    = "jamiat-tanmia-marrakech";
+  const pubUrl  = `https://tadbir.ma/public/${slug}`;
+
+  function toggleProject(id: string) {
+    setPublicSet(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }
+
+  async function copyUrl() {
+    await navigator.clipboard.writeText(pubUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <div dir="rtl" className="space-y-6">
+      {/* ── Hero ── */}
+      <div className="relative overflow-hidden rounded-card p-7"
+        style={{ background: "linear-gradient(135deg,var(--c-teal-dark),var(--c-teal))" }}>
+        <ZelligePattern opacity={0.08} />
+        <div className="relative z-10">
+          <h2 className="font-display font-black text-[1.375rem] text-white m-0 mb-2">
+            بوابة الشفافية
+          </h2>
+          <p className="text-white/70 text-[0.875rem] m-0 mb-5">
+            انشر مشاريعك وتقاريرك للعموم وابنِ الثقة مع المستفيدين والممولين
+          </p>
+
+          {/* Public URL */}
+          <div className="flex items-center gap-2 bg-white/10 rounded-btn px-4 py-2.5 border border-white/20 max-w-[32rem]">
+            <span className="text-[0.75rem] text-white/60 flex-shrink-0">🔗</span>
+            <span className="text-[0.8125rem] text-white font-mono flex-1 truncate">{pubUrl}</span>
+            <button onClick={copyUrl}
+              className="text-[0.75rem] font-semibold px-3 py-1 rounded-btn border-0 cursor-pointer transition-colors duration-[150ms] flex-shrink-0"
+              style={{ background: copied ? "var(--c-success)" : "var(--c-gold)", color: copied ? "#fff" : "var(--c-teal-dark)" }}>
+              {copied ? "✓ تم" : "نسخ"}
+            </button>
+            <a href="#" target="_blank"
+              className="text-[0.75rem] font-semibold px-3 py-1 rounded-btn border border-white/20 text-white no-underline hover:bg-white/10 transition-colors duration-[150ms]">
+              عرض ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Stats ── */}
+      <div className="grid grid-cols-3 gap-4">
+        {[
+          { label: "المشاريع المنشورة",  value: publicSet.size },
+          { label: "المشاريع الكلية",    value: projects.length },
+          { label: "المشاهدات هذا الشهر", value: "284" },
+        ].map((s, i) => (
+          <Inview key={s.label} tag="div" from={{ opacity: 0, y: 16 }} to={{ opacity: 1, y: 0 }}
+            mode="once" config={{ tension: 220, friction: 28 }} delayIn={i * 70}
+            className="bg-white rounded-card border border-ivory-dk p-5 text-center">
+            <p className="font-display font-black text-[2rem] text-teal-dark leading-none m-0">{s.value}</p>
+            <p className="text-[0.75rem] text-muted m-0 mt-1">{s.label}</p>
+          </Inview>
+        ))}
+      </div>
+
+      {/* ── Project toggles ── */}
+      <div className="bg-white rounded-card border border-ivory-dk overflow-hidden">
+        <div className="px-5 py-4 border-b border-ivory-dk">
+          <h3 className="font-display font-bold text-[0.9375rem] text-foreground m-0">
+            اختر المشاريع المرئية للعموم
+          </h3>
+        </div>
+
+        {projects.map((p, i) => {
+          const isPublic = publicSet.has(p.id);
+          return (
+            <Inview key={p.id} tag="div" from={{ opacity: 0 }} to={{ opacity: 1 }} mode="once"
+              config={{ tension: 220, friction: 32 }} delayIn={i * 50}
+              className="flex items-center gap-4 px-5 py-4 border-b border-ivory-dk last:border-0">
+              {/* Toggle */}
+              <button
+                onClick={() => toggleProject(p.id)}
+                className="relative w-10 h-5 rounded-badge border-0 cursor-pointer transition-colors duration-[250ms] flex-shrink-0"
+                style={{ background: isPublic ? "var(--c-teal)" : "var(--c-ivory-dk)" }}
+                role="switch" aria-checked={isPublic}>
+                <span
+                  className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all duration-[250ms]"
+                  style={{ right: isPublic ? "0.125rem" : "auto", left: isPublic ? "auto" : "0.125rem" }} />
+              </button>
+
+              {/* Project info */}
+              <div className="flex-1 min-w-0">
+                <p className="text-[0.875rem] font-semibold text-foreground m-0 truncate">{p.name}</p>
+                <div className="flex items-center gap-3 mt-1">
+                  <span className="text-[0.6875rem] text-muted">{p.funder.name}</span>
+                  <span className="text-[0.6875rem] text-muted">·</span>
+                  <span className="text-[0.6875rem] text-muted">{p.region}</span>
+                </div>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <ProgressBar value={p.progress} className="w-24" />
+                  <span className="text-[0.6875rem] text-muted">{p.progress}%</span>
+                </div>
+              </div>
+
+              {/* Status */}
+              <Badge variant={isPublic ? "success" : "muted"}>
+                {isPublic ? "✓ منشور" : "مخفي"}
+              </Badge>
+            </Inview>
+          );
+        })}
+      </div>
+
+      {/* ── Preview card ── */}
+      <div className="border-2 border-dashed border-ivory-dk rounded-card p-6">
+        <p className="text-[0.75rem] font-semibold text-muted uppercase tracking-wide mb-4 m-0">
+          معاينة الصفحة العامة
+        </p>
+        <div className="bg-white rounded-card border border-ivory-dk overflow-hidden">
+          {/* Mini public page preview */}
+          <div className="h-10 flex items-center px-4 gap-2"
+            style={{ background: "var(--c-teal-dark)" }}>
+            <span className="text-white font-display font-black text-[0.875rem]">تدبير<span style={{ color: "var(--c-gold)" }}>.ma</span></span>
+            <span className="text-white/40 text-[0.6875rem] mr-auto">{slug}</span>
+          </div>
+          <div className="p-4">
+            <h4 className="font-display font-bold text-[0.9375rem] text-teal-dark m-0 mb-1" dir="rtl">
+              جمعية التنمية المستدامة
+            </h4>
+            <p className="text-[0.75rem] text-muted m-0 mb-3" dir="rtl">مراكش · {publicSet.size} مشاريع منشورة</p>
+            <div className="grid grid-cols-2 gap-2" dir="rtl">
+              {projects.filter(p => publicSet.has(p.id)).slice(0, 4).map(p => (
+                <div key={p.id} className="rounded-btn border border-ivory-dk p-2.5 bg-ivory">
+                  <p className="text-[0.6875rem] font-semibold text-foreground m-0 truncate">{p.name}</p>
+                  <ProgressBar value={p.progress} className="mt-1.5" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
